@@ -87,6 +87,9 @@ var (
 	// If there are no Choices available to the Chooser with a weight >= 1,
 	// there are no valid choices and Pick would produce a runtime panic.
 	errNoValidChoices = errors.New("zero Choices with Weight >= 1")
+	// If argument value to the PickCustomRand is invalid,
+	// PickCustomRand would produce a runtime panic.
+	errCustomRandValueInvalid = errors.New("custom rand value invalid")
 )
 
 // Pick returns a single weighted random Choice.Item from the Chooser.
@@ -96,6 +99,19 @@ func (c Chooser[T, W]) Pick() T {
 	r := rand.Intn(c.max) + 1
 	i := searchInts(c.totals, r)
 	return c.data[i].Item
+}
+
+// PickCustomRand returns a single weighted random Choice.Item from the Chooser.
+//
+// Utilizes externally generated random value as the source of randomness.
+func (c Chooser[T, W]) PickCustomRand(r int) (T, error) {
+	if r < 1 || r > c.max+1 {
+		var zeroValue T
+		return zeroValue, errCustomRandValueInvalid
+	}
+
+	i := searchInts(c.totals, r)
+	return c.data[i].Item, nil
 }
 
 // PickSource returns a single weighted random Choice.Item from the Chooser,

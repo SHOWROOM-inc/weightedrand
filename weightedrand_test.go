@@ -117,6 +117,49 @@ func TestNewChooser(t *testing.T) {
 	}
 }
 
+func TestChooser_PickCustomRand(t *testing.T) {
+	tests := []struct {
+		name      string
+		cs        []Choice[rune, int]
+		randValue int
+		wantErr   error
+	}{
+		{
+			name:      "zero rand value",
+			cs:        []Choice[rune, int]{{Item: 'a', Weight: 1}, {Item: 'b', Weight: 2}},
+			randValue: 0,
+			wantErr:   errCustomRandValueInvalid,
+		},
+		{
+			name:      "negative rand value",
+			cs:        []Choice[rune, int]{{Item: 'a', Weight: 1}, {Item: 'b', Weight: 2}},
+			randValue: -1,
+			wantErr:   errCustomRandValueInvalid,
+		},
+		{
+			name:      "rand value exceeding total weight plus 1",
+			cs:        []Choice[rune, int]{{Item: 'a', Weight: 1}, {Item: 'b', Weight: 2}},
+			randValue: 5,
+			wantErr:   errCustomRandValueInvalid,
+		},
+		{
+			name:      "nominal case",
+			cs:        []Choice[rune, int]{{Item: 'a', Weight: 1}, {Item: 'b', Weight: 2}},
+			randValue: 1,
+			wantErr:   nil,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			chooser, _ := NewChooser(tt.cs...)
+			_, err := chooser.PickCustomRand(tt.randValue)
+			if err != tt.wantErr {
+				t.Errorf("PickCustomRand() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
 // TestChooser_Pick assembles a list of Choices, weighted 0-9, and tests that
 // over the course of 1,000,000 calls to Pick() each choice is returned more
 // often than choices with a lower weight.
