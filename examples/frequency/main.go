@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/mroth/weightedrand/v2"
+	"github.com/SHOWROOM-inc/weightedrand"
 )
 
 func main() {

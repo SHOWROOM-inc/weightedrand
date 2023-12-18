@@ -1,4 +1,4 @@
-module github.com/mroth/weightedrand/examples/compbench
+module github.com/SHOWROOM-inc/weightedrand/examples/compbench
 
 go 1.21
 
