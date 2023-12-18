@@ -1,3 +1,3 @@
-module github.com/SHOWROOM-inc/weightedrand/v2
+module github.com/SHOWROOM-inc/weightedrand
 
 go 1.18
