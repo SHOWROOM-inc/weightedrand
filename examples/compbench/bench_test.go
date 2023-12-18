@@ -8,8 +8,8 @@ import (
 	"math/rand"
 	"testing"
 
+	"github.com/SHOWROOM-inc/weightedrand"
 	"github.com/jmcvetta/randutil"
-	"github.com/mroth/weightedrand/v2"
 )
 
 const BMMinChoices = 10

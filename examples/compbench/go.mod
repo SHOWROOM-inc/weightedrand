@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/jmcvetta/randutil v0.0.0-20150817122601-2bb1b664bcff
-	github.com/mroth/weightedrand/v2 v2.0.0
+	github.com/SHOWROOM-inc/weightedrand v0.0.0-20231218072705-7ab9414a3173 // indirect
 )
 
-replace github.com/mroth/weightedrand/v2 => ../..
+replace github.com/SHOWROOM-inc/weightedrand => ../..
